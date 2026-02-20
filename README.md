@@ -49,11 +49,20 @@ The goal is to provide a seamless, habit-forming experience where users receive 
 ## ⚙️ Quick Start (Development)
 1. Clone the repository.
 2. Create a `.env` file with your `AUTH0_*` and `GEMINI_API_KEY` credentials.
-3. Run the application:
-   ```bash
-   docker-compose up --build
-   ```
-4. Access the frontend at `http://localhost:5173`.
+### 3. Launching
+Run the production command:
+```bash
+docker compose -f docker-compose.prod.yml up --build -d
+```
+
+### 4. Database Seeding
+After the containers are up, you **must** run the seed command once to populate interests and initial data:
+```bash
+docker exec fiveverbs_web_prod python manage.py seed_data
+```
+
+### 5. SSL (HTTPS)
+Access the frontend at `http://localhost:5173`.
 
 ---
 *Developed for the tib-usa.app ecosystem.*

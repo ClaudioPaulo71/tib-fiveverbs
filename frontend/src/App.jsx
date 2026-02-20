@@ -173,8 +173,7 @@ function App() {
             score: totalDailyScore,
             user_data: dailyAnswers
           });
-          // Brief delay to show the "Saved" state if we wanted, but let's just clear it
-          setTimeout(() => setIsSaving(false), 1000);
+          setIsSaving(false);
         } catch (e) {
           console.error("Auto-save failed:", e);
           setIsSaving(false);
@@ -220,6 +219,7 @@ function App() {
       alert("Failed to save lesson progress.");
     } finally {
       setAppLoading(false);
+      setIsSaving(false);
     }
   };
 
