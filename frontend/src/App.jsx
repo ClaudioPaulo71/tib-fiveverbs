@@ -10,6 +10,8 @@ import LessonCard from './components/LessonCard'
 import CalendarView from './components/CalendarView'
 import { useAuth0 } from "@auth0/auth0-react";
 import api from './services/api';
+import logo from './assets/logo.png';
+import watermark from './assets/watermark.png';
 
 function App() {
   const { user, isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
@@ -227,7 +229,7 @@ function App() {
     <>
       <div className="header">
         <h1>
-          <img src="/src/assets/logo.png" alt="VER5S Logo" className="logo-img" />
+          <img src={logo} alt="VER5S Logo" className="logo-img" />
           VER5S
         </h1>
         <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
