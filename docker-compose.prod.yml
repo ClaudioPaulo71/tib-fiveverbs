@@ -37,7 +37,12 @@ services:
 
   # --- Frontend (NGINX + Static Assets) ---
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      args:
+        - VITE_AUTH0_DOMAIN=${VITE_AUTH0_DOMAIN}
+        - VITE_AUTH0_CLIENT_ID=${VITE_AUTH0_CLIENT_ID}
+        - VITE_AUTH0_AUDIENCE=${VITE_AUTH0_AUDIENCE}
     container_name: fiveverbs_frontend_prod
     networks:
       - tib_network
