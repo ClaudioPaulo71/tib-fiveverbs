@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+
+# Node
+node_modules/
+dist/
+.eslintcache
+
+# Docker
+.docker
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Django
+db.sqlite3
+staticfiles/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.bak

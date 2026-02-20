@@ -1,0 +1,94 @@
+.calendar-container {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    max-width: 450px;
+    margin: 0 auto 30px;
+}
+
+.custom-calendar {
+    width: 100% !important;
+    border: none !important;
+    background: transparent !important;
+    font-family: 'Inter', sans-serif;
+}
+
+.react-calendar__tile--now {
+    background: #f1f5f9 !important;
+    border-radius: 8px;
+    color: #0f172a !important;
+}
+
+.react-calendar__tile--active {
+    background: #10b981 !important;
+    border-radius: 8px;
+    color: white !important;
+}
+
+.has-lesson {
+    position: relative;
+    font-weight: bold;
+}
+
+.has-lesson::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+}
+
+.tile-beginner::after {
+    background-color: #10b981;
+}
+
+.tile-intermediate::after {
+    background-color: #f59e0b;
+}
+
+.tile-advanced::after {
+    background-color: #ef4444;
+}
+
+.completed {
+    color: #10b981 !important;
+}
+
+.calendar-legend {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+    font-size: 0.8rem;
+    color: #64748b;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.dot-beginner {
+    background: #10b981;
+}
+
+.dot-intermediate {
+    background: #f59e0b;
+}
+
+.dot-advanced {
+    background: #ef4444;
+}

@@ -1,0 +1,58 @@
+services:
+  # --- Banco de Dados (PostgreSQL) ---
+  db:
+    image: postgres:15
+    container_name: fiveverbs_db_prod
+    volumes:
+      - postgres_data_prod:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB:-fiveverbs_db}
+      - POSTGRES_USER=${POSTGRES_USER:-fiveverbs_user}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-fiveverbs_password}
+    networks:
+      - tib_network
+    restart: always
+
+  # --- Aplicação Web (Django) ---
+  web:
+    build: .
+    container_name: fiveverbs_web_prod
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py collectstatic --no-input &&
+             gunicorn config.wsgi:application --bind 0.0.0.0:8000"
+    env_file:
+      - .env
+    depends_on:
+      - db
+    networks:
+      - tib_network
+    restart: always
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.fiveverbs-api.rule=Host(`fiveverbs.tib-usa.app`) && (PathPrefix(`/api`) || PathPrefix(`/admin`) || PathPrefix(`/static`))"
+      - "traefik.http.routers.fiveverbs-api.entrypoints=websecure"
+      - "traefik.http.routers.fiveverbs-api.tls.certresolver=myresolver"
+      - "traefik.http.services.fiveverbs-api.loadbalancer.server.port=8000"
+
+  # --- Frontend (NGINX + Static Assets) ---
+  frontend:
+    build: ./frontend
+    container_name: fiveverbs_frontend_prod
+    networks:
+      - tib_network
+    restart: always
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.fiveverbs-frontend.rule=Host(`fiveverbs.tib-usa.app`)"
+      - "traefik.http.routers.fiveverbs-frontend.entrypoints=websecure"
+      - "traefik.http.routers.fiveverbs-frontend.tls.certresolver=myresolver"
+      - "traefik.http.services.fiveverbs-frontend.loadbalancer.server.port=80"
+
+volumes:
+  postgres_data_prod:
+
+
+networks:
+  tib_network:
+    external: true
